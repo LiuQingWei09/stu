@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>each遍历并修改三个div的值</title>
+</head>
+<script type="text/javascript" src="./jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+//定义页面的载入事件
+$(function(){
+	$('#btn').on('click',function(){
+		//遍历
+		$('div').each(function(index,el){
+			//console.log(index);//遍历each的索引值 index默认从0开始
+			//console.log(el);   //遍历each的dom对象
+			$(el).html('第'+(index+1)+'个');//遍历改变div中的值
+		});
+	});
+});
+</script>
+<body>
+	<input type="button" id="btn" value="修改"></input>
+	<div>div1</div>
+	<div>div1</div>
+	<div>div1</div>
+</body>
+</html>
