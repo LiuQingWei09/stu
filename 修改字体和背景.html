@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>春播</title>
+	<script type="text/javascript" src="./jquery-1.8.3.min.js"></script>
+	<style type="text/css">
+	div{width:200px;height: 400px;border: 1px solid blue}
+
+	</style>
+	<script type="text/javascript">
+	    //定义页面的载入事件
+		$(function(){
+			//定义jquery的自定义插件
+			$.fn.extend({
+			   fn1:function(){
+			   	//this代表调用此方法的jquery对象
+			   	this.css('color','red');
+			   },
+			   fn2:function(){
+			   	//this代表调用此方法的jquery对象
+			   	this.css('background','yellow');
+			   }
+			});
+			//给btn绑定点击事件
+			$('#btn').on('click',function(){
+				$('div').fn1();//调用fn1的插件
+				$('div').fn2();//调用fn2的插件
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="button" id="btn" value="触发效果"></input>
+	<div>
+		今天天气不错
+	</div>
+</body>
+</html>
