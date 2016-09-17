@@ -13,19 +13,21 @@
 		$(function(){
 			//定义jquery的自定义插件
 			$.fn.extend({
-			   fn1:function(){
+				//字体
+			   typeFace:function(typeFaceColor){
 			   	//this代表调用此方法的jquery对象
-			   	this.css('color','red');
+			   	this.css('color',typeFaceColor);
 			   },
-			   fn2:function(){
+			   //背景
+			   beiJing:function(GroundColor){
 			   	//this代表调用此方法的jquery对象
-			   	this.css('background','yellow');
+			   	this.css('background',GroundColor);
 			   }
 			});
 			//给btn绑定点击事件
 			$('#btn').on('click',function(){
-				$('div').fn1();//调用fn1的插件
-				$('div').fn2();//调用fn2的插件
+				$('div').typeFace('red');//调用typeFace(字体自定义)的插件
+				$('div').beiJing('blue');//调用beiJing(背景颜色自定义)的插件
 			});
 		});
 	</script>
