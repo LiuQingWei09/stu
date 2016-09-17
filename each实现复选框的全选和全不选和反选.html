@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>each实现复选框的全选和全不选和反选</title>
+</head>
+<script type="text/javascript" src="./jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	//定义页面的载入事件
+	$(function(){
+		//给全选绑定事件
+		$('#qx').on('click',function(){
+			//实现全选效果
+			$('input[type="checkbox"]').attr('checked','checked');
+		});
+		//给全不选绑定事件
+		$('#qbx').on('click',function(){
+			//实现全不选效果  -移除属性
+			$('input[type="checkbox"]').removeAttr('checked');
+		});
+		//给反选绑定事件
+		$('#fx').on('click',function(){
+			//思路如下:遍历   如果某个全选已选中 则去移除  如果没选中 则选中
+			$('input[type="checkbox"]').each(function(index,el){
+				//这里el为dom对象 如果该dom属性是选中状态 则移除
+				if ($(el).attr('checked') == 'checked') {
+					//移除
+					$(el).removeAttr('checked');
+				} else {
+					//实现选中
+					$(el).attr('checked','checked');
+				}
+			});
+		});
+	});
+</script>
+<body>
+	我的爱好:
+		<input type="checkbox" value="1" name="hobby">旅游</input>&emsp;
+		<input type="checkbox" value="1" name="hobby">学习</input>&emsp;
+		<input type="checkbox" value="1" name="hobby">看书</input>&emsp;
+		<input type="checkbox" value="1" name="hobby">电视</input>&emsp;
+		<p>
+			<input type="button" id="qx" value="全选"></input>
+			<input type="button" id="qbx" value="全不选"></input>
+			<input type="button" id="fx" value="全选"></input>
+		</p>
+</body>
+</html>
