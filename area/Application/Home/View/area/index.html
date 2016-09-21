@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>三级联动</title>
+</head>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	//载入事件
+	$(function(){
+		//给省/直辖市绑定改变事件
+		$('#province').on('change',function(){
+			//获取省/直辖市的城市id
+			var provinceId = $(this).val();
+			/**
+			 * ajax请求
+			 * @param url 回调地址 php端的 控制器名/方法名
+			 * @param type post方式传输 
+			 * @param data 要传的参数 该参数传给php端
+			 * @param success 回调函数 即php端的返回的数据在这里进行处理回显
+			 */
+			$.ajax({
+	            url: '__CONTROLLER__/getAreaById',
+	            type: 'post',
+	            data: {regionid:provinceId},
+	            success: function (ajaxdata) {
+	                //清空数据 市
+	                $('#city option:gt(0)').remove();
+	                //清空数据 县
+	                $('#district option:gt(0)').remove();
+	                ////遍历读取并追加给表单
+	                $(ajaxdata).each(function(index,el){
+	                	//追加
+	                	$('#city').append("<option value='"+el.regionid+"'>"+el.region_name+"<option>");
+	                });
+	                
+	            }
+        	});
+		});
+		$('#city').on('change',function(){
+			//获取省/直辖市的城市id
+			var cityId = $(this).val();
+			/**
+			 * ajax请求
+			 * @param url 回调地址 php端的 控制器名/方法名
+			 * @param type post方式传输 
+			 * @param data 要传的参数 该参数传给php端
+			 * @param success 回调函数 即php端的返回的数据在这里进行处理回显
+			 */
+			$.ajax({
+	            url: '__CONTROLLER__/getAreaById',
+	            type: 'post',
+	            data: {regionid:cityId},
+	            success: function (ajaxdata) {
+	                //清空数据 县
+	                $('#district option:gt(0)').remove();
+	                //遍历读取并追加给表单
+	                $(ajaxdata).each(function(index,el){
+	                	//追加 append() 方法在被选元素的结尾（仍然在内部）插入指定内容。
+	                	$('#district').append("<option value='"+el.regionid+"'>"+el.region_name+"<option>");
+	                });
+	                
+	            }
+        	});
+		});
+	});
+
+</script>
+<body>
+	<select id="province">
+		<option value="-1">省/直辖市</option>
+		<volist name="provinceData" id="vo">
+			<option value="{$vo.regionid}">{$vo.region_name}</option>
+		</volist>
+	</select>
+	<select id="city">
+		<option value="-1">市</option>
+	</select>
+	<select id="district">
+		<option value="-1">区/县</option>
+	</select>
+</body>
+</html>
