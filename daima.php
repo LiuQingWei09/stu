@@ -10,7 +10,6 @@
     public function addDelChangeProductStatus()
     {
         $res_data = $_POST["json_data"] ? $_POST["json_data"] : $_GET["json_data"];
-        LogHelper::debug($res_data, 'Catalog:ThirdPlat:addDelChangeProductStatus:request');
         $param_data = json_decode($res_data,true);
         if (is_array($param_data))
         {
@@ -60,7 +59,6 @@
                     {
                         $result["status"] = 0;
                         $result["info"]   = '添加失败';
-                        LogHelper::debug($result["info"], 'Catalog:ThirdPlat:addDelChangeProductStatus:error');
                         exit(json_encode($result));  
                     }
                 } 
@@ -73,7 +71,6 @@
                         {
                             $result["status"] = 0;
                             $result["info"]   = "添加失败";
-                            LogHelper::debug($result["info"], 'Catalog:ThirdPlat:addDelChangeProductStatus:error');
                             exit(json_encode($result));  
                         }
                     }
@@ -89,7 +86,6 @@
                     {
                         $result["status"] = 0;
                         $result["info"]   = '更新失败';
-                        LogHelper::debug($result["info"], 'Catalog:ThirdPlat:addDelChangeProductStatus:error');
                         exit(json_encode($result));  
                     }
                 }
@@ -98,7 +94,6 @@
             {
                 $result["status"] = 1;
                 $result["info"]   = '成功';
-                LogHelper::debug($result["info"], 'Catalog:ThirdPlat:addDelChangeProductStatus:success');
                 exit(json_encode($result)); 
             }
         }  
@@ -112,15 +107,15 @@
     public function newchange_product_status()
     {
 
-        $wms_status     = (int) I('wms_status');
-        $sku_code 	= I('sku_code', 0, int);  
-        $site_id 	= (int) I('site_id');      
+        $wms_status = (int) I('wms_status');
+        $sku_code  	= I('sku_code', 0, int);  
+        $site_id  	 = (int) I('site_id');      
          
         
-        $model_product 		 = M('product','','DB_CATALOG'); 
-        $model_warehouse_map     = M('product_warehouse_map','','DB_CATALOG');
-        $product_ids 		 = $model_product->field('product_id')->where('sku_code='.$sku_code)->select();
-        $warehouse_data 	 = $model_warehouse_map->fetchSql(false)
+        $model_product 		    = M('product','','DB_CATALOG'); 
+        $model_warehouse_map = M('product_warehouse_map','','DB_CATALOG');
+        $product_ids 		      = $model_product->field('product_id')->where('sku_code='.$sku_code)->select();
+        $warehouse_data 	    = $model_warehouse_map->fetchSql(false)
                                                     ->where('product_id='.$product_ids[0]['product_id'].' AND '.'site_id='.$site_id)
                                                     ->select();
         $update_warehouse_map = array();
